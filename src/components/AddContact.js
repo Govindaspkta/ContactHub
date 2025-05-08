@@ -7,7 +7,7 @@ class AddContact extends React.Component{
     };
     add = (e) => {
         e.preventDefault();
-        if(this.state.name === "" && this.state.email === ""){
+        if(this.state.name === "" || this.state.email === ""){
             alert("all the fields are required");
             return;
         }
@@ -24,8 +24,8 @@ class AddContact extends React.Component{
                     <label>Name</label>
                     <input 
                     type="text" name= "name" placeholder="ramu"
-                    value={this.setState.name}
-                     onChange = { (e) => this.setstate({name: e.target.value })} 
+                    value={this.State.name}
+                     onChange = { (e) => this.setState({name: e.target.value })} 
                      />
                 </div>
                 <div className='field'>
