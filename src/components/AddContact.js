@@ -1,6 +1,6 @@
 import React from 'react';
 class AddContact extends React.Component{
-
+      
     state = {
         name:'',
         email:'',
@@ -24,7 +24,7 @@ class AddContact extends React.Component{
                     <label>Name</label>
                     <input 
                     type="text" name= "name" placeholder="ramu"
-                    value={this.State.name}
+                    value={this.state.name}
                      onChange = { (e) => this.setState({name: e.target.value })} 
                      />
                 </div>

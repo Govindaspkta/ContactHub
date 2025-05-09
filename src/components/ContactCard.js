@@ -11,7 +11,10 @@ const Contactcard = (props) => {
     </div>
     <i className="trash alternate outline icon"
     style={{color:"red",marginTop:'10px'}}
-    ></i>
+    onClick={() => props.clickHandler(id)}
+    >
+
+    </i>
     </div>
 );
 }
