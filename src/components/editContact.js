@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const AddContact = ({ addContactHandler }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+const EditContact = ({ contacts, updateContactHandler }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const contact = contacts.find((c) => c.id === id) || { name: '', email: '' };
+  const [name, setName] = useState(contact.name);
+  const [email, setEmail] = useState(contact.email);
 
-  const add = (e) => {
+  useEffect(() => {
+    if (!contact.name && !contact.email) {
+      alert("Contact not found");
+      navigate('/');
+    }
+  }, [contact, navigate]);
+
+  const update = (e) => {
     e.preventDefault();
     if (!name || !email) {
       alert("Both name and email are required");
@@ -17,17 +26,17 @@ const AddContact = ({ addContactHandler }) => {
       alert("Invalid email format");
       return;
     }
-    addContactHandler({ name, email });
+    updateContactHandler({ id, name, email });
     setName('');
     setEmail('');
-    console.log("Submitted contact:", { name, email });
+    console.log("Updated contact:", { id, name, email });
     navigate('/');
   };
 
   return (
     <div className="ui main">
-      <h2>Add Contact</h2>
-      <form className="ui form" onSubmit={add}>
+      <h2>Edit Contact</h2>
+      <form className="ui form" onSubmit={update}>
         <div className="field">
           <label>Name</label>
           <input
@@ -48,10 +57,10 @@ const AddContact = ({ addContactHandler }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button className="ui button blue">Add</button>
+        <button className="ui button blue">Update</button>
       </form>
     </div>
   );
 };
 
-export default AddContact;
+export default EditContact;
